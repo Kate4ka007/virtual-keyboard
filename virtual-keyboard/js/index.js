@@ -1,6 +1,7 @@
-// import buttons from './buttons';
+/* eslint-disable no-use-before-define */
+import buttons from './buttons.js';
 
-const buttons = [
+/* const buttons = [
   {
     type: 'other',
     content: { ru: 'Esc', en: 'Esc' },
@@ -609,7 +610,7 @@ const buttons = [
     width: 'normal',
     row: 6,
   },
-];
+]; */
 
 const cap = document.createElement('div');
 const textarea = document.createElement('textarea');
@@ -663,16 +664,6 @@ const functionalButtons = (num, row, classes) => {
   };
   row.append(key);
 };
-
-/* const firstLine = (num, row) => { /// /------------------------
-  const key = document.createElement('div');
-  key.classList.add('button_first');
-  key.textContent = buttons[num].content.en;
-  key.onclick = () => {
-    textarea.focus();
-  };
-  row.append(key);
-}; */
 
 const KeyDelet = (num, row) => {
   const key = document.createElement('div');
@@ -833,13 +824,56 @@ const keyLang = (num, row) => {
     if (keyLanguage.classList.contains('activeLang')) {
       keyLanguage.classList.remove('activeLang');
       createButtons();
+      localStorage.removeItem('lang');
     } else {
       keyLanguage.classList.add('activeLang');
       createButtonsRu();
+      localStorage.setItem('lang', 'activeLang');
     }
   };
   row.append(keyLanguage);
 };
+
+
+ const shiftKeyBoards = (num, row) => {
+  const key = document.createElement('div');
+  key.classList.add('button');
+  if (cap.classList.contains('active')) {
+    if (keyLanguage.classList.contains('activeLang')) {
+      key.textContent = buttons[num].altContent.ru;
+    } else {
+      key.textContent = buttons[num].altContent.en;
+    }
+  } else if (keyLanguage.classList.contains('activeLang')) {
+    key.textContent = buttons[num].altContent.ru.toUpperCase();
+  } else {
+    key.textContent = buttons[num].altContent.en.toUpperCase();
+  }
+
+  key.onclick = () => {
+    if (cap.classList.contains('active')) {
+      textarea.focus();
+      if (keyLanguage.classList.contains('activeLang')) {
+        textarea.value += buttons[num].altContent.ru;
+      } else {
+        textarea.value += buttons[num].altContent.en;
+      }
+    } else {
+      textarea.focus();
+      if (keyLanguage.classList.contains('activeLang')) {
+        textarea.value += buttons[num].altContent.ru.toUpperCase();
+      } else {
+        textarea.value += buttons[num].altContent.en.toUpperCase();
+      }
+    }
+    if (keyLanguage.classList.contains('activeLang')) {
+      createButtonsRu();
+    } else {
+      createButtons();
+    }
+  }; 
+  row.append(key);
+}; 
 
 let keyShift;
 const KeyShift = (num, row) => {
@@ -851,13 +885,22 @@ const KeyShift = (num, row) => {
   keyShift.addEventListener('mousedown', () => {
     keyShift.focus();
     console.log('hi');
-    // createButtonsRu();
+    createButtonsShift();
+    keyShift.classList.add('shift');
   });
 
   keyShift.addEventListener('mouseout', () => {
     keyShift.focus();
     console.log('by');
-  //  createButtons();
+    
+/*     setTimeout( () => {  
+       if (keyLanguage.classList.contains('activeLang')) {
+      createButtonsRu();
+    } else {
+      createButtons();
+    }}
+    , 1500) */
+ 
   });
 
   row.append(keyShift);
@@ -916,39 +959,41 @@ const createButtons = () => {
   row6.innerHTML = '';
   arrowsTopBot.innerHTML = '';
   globus.innerHTML = '';
-  KeyShift(54, row5);
+  KeyShift(55, row5);
   for (let i = 0; i < buttons.length; i += 1) {
-    if (i >= 0 && i < 12) {
+    if (i >= 0 && i < 13) {
       functionalButtons(i, row1, 'button_first');
-    } else if (i >= 13 && i < 26 && i !== 26) {
+    } else if (i >= 14 && i < 27 && i !== 27) {
       KeyboardButtons(i, row2, 'ru');
-    } else if (i >= 28 && i < 41) {
+    } else if (i >= 29 && i < 42) {
       KeyboardButtons(i, row3);
-    } else if (i >= 42 && i < 53) {
+    } else if (i >= 43 && i < 54) {
       KeyboardButtons(i, row4);
-    } else if (i >= 55 && i < 65) {
+    } else if (i >= 56 && i < 66) {
       KeyboardButtons(i, row5);
     }
   }
-  keyLang(12, row1);
-  KeyDelet(26, row2);
-  KeyTab(27, row3);
-  KeyCapsLock(41, row4);
-  KeyEnter(53, row4);
-  KeyShift(65, row5);
-  functionalButtons(66, row6, 'button_buttom');
+  keyLang(13, row1);
+  KeyDelet(27, row2);
+  KeyTab(28, row3);
+  KeyCapsLock(42, row4);
+  KeyEnter(54, row4);
+  KeyShift(66, row5);
   functionalButtons(67, row6, 'button_buttom');
   functionalButtons(68, row6, 'button_buttom');
-  KeySpace(69, row6);
-  functionalButtons(70, row6, 'button_buttom');
+  functionalButtons(69, row6, 'button_buttom');
+  KeySpace(70, row6);
   functionalButtons(71, row6, 'button_buttom');
-  KeyarrowLeft(72, row6);
+  functionalButtons(72, row6, 'button_buttom');
+  KeyarrowLeft(73, row6);
   row6.append(arrowsTopBot);
-  KeyarrowTop(73, arrowsTopBot);
-  KeyarrowBottom(74, arrowsTopBot);
-  KeyarrowRight(75, row6);
+  KeyarrowTop(74, arrowsTopBot);
+  KeyarrowBottom(75, arrowsTopBot);
+  KeyarrowRight(76, row6);
+  textarea.focus();
 };
-createButtons();
+
+
 
 const createButtonsRu = () => {
   row1.innerHTML = '';
@@ -959,46 +1004,103 @@ const createButtonsRu = () => {
   row6.innerHTML = '';
   globus.innerHTML = '';
   arrowsTopBot.innerHTML = '';
-  KeyShift(54, row5);
+  KeyShift(55, row5);
   for (let i = 0; i < buttons.length; i += 1) {
-    if (i >= 0 && i < 12) {
+    if (i >= 0 && i < 13) {
       functionalButtons(i, row1, 'button_first');
-    } else if (i >= 13 && i < 26 && i !== 26) {
+    } else if (i >= 14 && i < 27 && i !== 27) {
       KeyboardButtonsRu(i, row2, 'ru');
-    } else if (i >= 28 && i < 41) {
+    } else if (i >= 29 && i < 42) {
       KeyboardButtonsRu(i, row3);
-    } else if (i >= 42 && i < 53) {
+    } else if (i >= 43 && i < 54) {
       KeyboardButtonsRu(i, row4);
-    } else if (i >= 55 && i < 65) {
+    } else if (i >= 56 && i < 66) {
       KeyboardButtonsRu(i, row5);
     }
   }
-  keyLang(12, row1);
-  KeyDelet(26, row2);
-  KeyTab(27, row3);
-  KeyCapsLock(41, row4);
-  KeyEnter(53, row4);
-  KeyShift(65, row5);
-  functionalButtons(66, row6, 'button_buttom');
+  keyLang(13, row1);
+  KeyDelet(27, row2);
+  KeyTab(28, row3);
+  KeyCapsLock(42, row4);
+  KeyEnter(54, row4);
+  KeyShift(66, row5);
   functionalButtons(67, row6, 'button_buttom');
   functionalButtons(68, row6, 'button_buttom');
-  KeySpace(69, row6);
-  functionalButtons(70, row6, 'button_buttom');
+  functionalButtons(69, row6, 'button_buttom');
+  KeySpace(70, row6);
   functionalButtons(71, row6, 'button_buttom');
-  KeyarrowLeft(72, row6);
+  functionalButtons(72, row6, 'button_buttom');
+  KeyarrowLeft(73, row6);
   row6.append(arrowsTopBot);
-  KeyarrowTop(73, arrowsTopBot);
-  KeyarrowBottom(74, arrowsTopBot);
-  KeyarrowRight(75, row6);
+  KeyarrowTop(74, arrowsTopBot);
+  KeyarrowBottom(75, arrowsTopBot);
+  KeyarrowRight(76, row6);
+  textarea.focus();
 };
+
+if (localStorage.getItem('lang')) {
+  keyLanguage.classList.add('activeLang');
+  createButtonsRu();
+} else {
+  createButtons();
+  // keyLanguage.classList.remove('activeLang');
+}
+
+ const createButtonsShift = () => {
+  row1.innerHTML = '';
+  row2.innerHTML = '';
+  row3.innerHTML = '';
+  row4.innerHTML = '';
+  row5.innerHTML = '';
+  row6.innerHTML = '';
+  arrowsTopBot.innerHTML = '';
+  globus.innerHTML = '';
+  KeyShift(55, row5);
+  for (let i = 0; i < buttons.length; i += 1) {
+    if (i >= 0 && i < 13) {
+      functionalButtons(i, row1, 'button_first');
+    } else if (i >= 14 && i < 27 && i !== 27) {
+      shiftKeyBoards(i, row2, 'ru');
+    } else if (i >= 29 && i < 42) {
+      shiftKeyBoards(i, row3);
+    } else if (i >= 43 && i < 54) {
+      shiftKeyBoards(i, row4);
+    } else if (i >= 56 && i < 66) {
+      shiftKeyBoards(i, row5);
+    }
+  }
+  keyLang(13, row1);
+  KeyDelet(27, row2);
+  KeyTab(28, row3);
+  KeyCapsLock(42, row4);
+  KeyEnter(54, row4);
+  KeyShift(66, row5);
+  functionalButtons(67, row6, 'button_buttom');
+  functionalButtons(68, row6, 'button_buttom');
+  functionalButtons(69, row6, 'button_buttom');
+  KeySpace(70, row6);
+  functionalButtons(71, row6, 'button_buttom');
+  functionalButtons(72, row6, 'button_buttom');
+  KeyarrowLeft(73, row6);
+  row6.append(arrowsTopBot);
+  KeyarrowTop(74, arrowsTopBot);
+  KeyarrowBottom(75, arrowsTopBot);
+  KeyarrowRight(76, row6);
+  // textarea.focus();
+}; 
 
 const but = document.querySelectorAll('.button');
 const space = document.querySelector('.space');
+const deleteBut = document.querySelector('.delete');
 const returnBut = document.querySelector('.return');
 const arrowl = document.querySelector('.arrow_left');
 const arrowR = document.querySelector('.arrow_right');
 const arrowTop = document.querySelector('.arrow_top');
 const arrowBottom = document.querySelector('.arrow_bottom');
+const shifts = document.querySelectorAll('.shift');
+const tab = document.querySelector('.tab');
+const bottonsButtom = document.querySelectorAll('.button_buttom');
+const buttonFirst = document.querySelectorAll('.button_first');
 
 const animation = (event) => {
   console.log('code: ', event.code);
@@ -1140,6 +1242,12 @@ const animation = (event) => {
       but[12].classList.remove('activebut');
     }, 500);
   }
+  if (event.code === 'Backspace') {
+    deleteBut.classList.add('activebut');
+    setTimeout(() => {
+      deleteBut.classList.remove('activebut');
+    }, 500);
+  }
 
   if (event.code === 'KeyQ') {
     but[13].classList.add('activebut');
@@ -1219,13 +1327,6 @@ const animation = (event) => {
       but[25].classList.remove('activebut');
     }, 500);
   }
-
-  /*    if (event.code === 'CapsLock') {
-    but[26].classList.add('activebut');
-    setTimeout(() => {
-      but[26].classList.remove('activebut');
-    }, 500);
-  }  */
 
   if (event.code === 'KeyA') {
     but[27].classList.add('activebut');
@@ -1329,6 +1430,25 @@ const animation = (event) => {
       arrowBottom.classList.remove('activebut');
     }, 500);
   }
+  if (event.code === 'ShiftLeft') {
+    shifts[0].classList.add('activebut');
+    createButtonsShift();
+    keyShift.classList.add('shift');
+    setTimeout(() => {
+      /* if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      } */
+      shifts[0].classList.remove('activebut');
+    }, 1500);
+  }
+  if (event.code === 'ShiftRight') {
+    shifts[1].classList.add('activebut');
+    setTimeout(() => {
+      shifts[1].classList.remove('activebut');
+    }, 500);
+  }
   if (event.code === 'CapsLock') {
     cap.classList.add('activebut');
     if (cap.classList.contains('active')) {
@@ -1350,5 +1470,122 @@ const animation = (event) => {
       cap.classList.remove('activebut');
     }, 500);
   }
+
+  if (event.code === 'Tab') {
+    textarea.focus();
+    tab.classList.add('activebut');
+    setTimeout(() => {
+      tab.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ControlLeft') {
+    bottonsButtom[0].classList.add('activebut');
+    setTimeout(() => {
+      bottonsButtom[0].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'MetaLeft') {
+    bottonsButtom[1].classList.add('activebut');
+    setTimeout(() => {
+      bottonsButtom[1].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'AltLeft') {
+    bottonsButtom[2].classList.add('activebut');
+    setTimeout(() => {
+      bottonsButtom[2].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'AltRight') {
+    bottonsButtom[4].classList.add('activebut');
+    setTimeout(() => {
+      bottonsButtom[4].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ControlRight') {
+    bottonsButtom[5].classList.add('activebut');
+    setTimeout(() => {
+      bottonsButtom[5].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Escape') {
+    buttonFirst[0].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[0].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F1') {
+    buttonFirst[1].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[1].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F2') {
+    buttonFirst[2].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[2].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F3') {
+    buttonFirst[3].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[3].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F4') {
+    buttonFirst[4].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[4].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F5') {
+    buttonFirst[5].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[5].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F6') {
+    buttonFirst[6].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[6].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F7') {
+    buttonFirst[7].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[7].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F8') {
+    buttonFirst[8].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[8].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F9') {
+    buttonFirst[9].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[9].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F10') {
+    buttonFirst[10].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[10].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F11') {
+    buttonFirst[11].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[11].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'F12') {
+    buttonFirst[12].classList.add('activebut');
+    setTimeout(() => {
+      buttonFirst[12].classList.remove('activebut');
+    }, 500);
+  }
 };
 window.addEventListener('keydown', animation);
+// bottonsButtom buttonFirst

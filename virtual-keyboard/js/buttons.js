@@ -25,6 +25,14 @@ const buttons = [
   },
   {
     type: 'other',
+    content: { ru: 'F3', en: 'F3' },
+    altContent: { ru: 'F3', en: 'F3' },
+    code: 'F3',
+    width: 'normal',
+    row: 1,
+  },
+  {
+    type: 'other',
     content: { ru: 'F4', en: 'F4' },
     altContent: { ru: 'F4', en: 'F4' },
     code: 'F4',
