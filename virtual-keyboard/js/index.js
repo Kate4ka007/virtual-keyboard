@@ -617,7 +617,11 @@ const textarea = document.createElement('textarea');
 const KeyboardButtons = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('button');
-  key.textContent = buttons[num].content.en;
+  if (cap.classList.contains('active')) {
+    key.textContent = buttons[num].content.en.toUpperCase();
+  } else {
+    key.textContent = buttons[num].content.en;
+  }
   key.onclick = () => {
     if (cap.classList.contains('active')) {
       textarea.focus();
@@ -630,10 +634,14 @@ const KeyboardButtons = (num, row) => {
   row.append(key);
 };
 
-/* const KeyboardButtonsRu = (num, row) => {
+const KeyboardButtonsRu = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('button');
-  key.textContent = buttons[num].content.en;
+  if (cap.classList.contains('active')) {
+    key.textContent = buttons[num].content.ru.toUpperCase();
+  } else {
+    key.textContent = buttons[num].content.ru;
+  }
   key.onclick = () => {
     if (cap.classList.contains('active')) {
       textarea.focus();
@@ -644,7 +652,7 @@ const KeyboardButtons = (num, row) => {
     }
   };
   row.append(key);
-}; */
+};
 
 const functionalButtons = (num, row, classes) => {
   const key = document.createElement('div');
@@ -672,10 +680,10 @@ const KeyDelet = (num, row) => {
   key.textContent = buttons[num].content.en;
   key.onclick = () => {
     textarea.value = textarea.value.slice(0, -1);
-    console.log(buttons[num].content.en);
   };
   row.append(key);
 };
+
 const KeyTab = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('tab');
@@ -696,15 +704,7 @@ const KeyEnter = (num, row) => {
   };
   row.append(key);
 };
-/* const KeyShift = (num, row) => { //--------
-  const key = document.createElement('div');
-  key.classList.add('shift');
-  key.textContent = buttons[num].content.en;
-  key.onclick = () => {
-    textarea.focus();
-  };
-  row.append(key);
-}; */
+
 /* const KeyCtrl = (num, row) => { //---------------
   const key = document.createElement('div');
   // key.classList.add('button_buttom');
@@ -739,7 +739,6 @@ const KeySpace = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('button_buttom');
   key.classList.add('space');
-  // key.textContent = buttons[num].content.en
   key.onclick = () => {
     textarea.focus();
     textarea.value += ' ';
@@ -749,36 +748,44 @@ const KeySpace = (num, row) => {
 const KeyarrowLeft = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('arrow_left');
+  key.classList.add('arrow');
   key.textContent = buttons[num].content.en;
   key.onclick = () => {
     textarea.focus();
+    textarea.value += '◄';
   };
   row.append(key);
 };
 const KeyarrowRight = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('arrow_right');
+  key.classList.add('arrow');
   key.textContent = buttons[num].content.en;
   key.onclick = () => {
     textarea.focus();
+    textarea.value += '►';
   };
   row.append(key);
 };
 const KeyarrowTop = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('arrow_top');
+  key.classList.add('arrow');
   key.textContent = buttons[num].content.en;
   key.onclick = () => {
     textarea.focus();
+    textarea.value += '▲';
   };
   row.append(key);
 };
 const KeyarrowBottom = (num, row) => {
   const key = document.createElement('div');
   key.classList.add('arrow_bottom');
+  key.classList.add('arrow');
   key.textContent = buttons[num].content.en;
   key.onclick = () => {
     textarea.focus();
+    textarea.value += '▼';
   };
   row.append(key);
 };
@@ -797,12 +804,71 @@ const KeyCapsLock = (num, row) => {
     textarea.focus();
     if (cap.classList.contains('active')) {
       cap.classList.remove('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
     } else {
       cap.classList.add('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
     }
   };
   row.prepend(cap);
 };
+const globus = document.createElement('img');
+const keyLanguage = document.createElement('div');
+const keyLang = (num, row) => {
+  keyLanguage.classList.add('lang');
+  globus.classList.add('globus');
+  globus.src = '../../virtual-keyboard/assets/image/lang.png';
+  keyLanguage.append(globus);
+  // keyLanguage.textContent = buttons[num].content.en;
+  keyLanguage.onclick = () => {
+    textarea.focus();
+    if (keyLanguage.classList.contains('activeLang')) {
+      keyLanguage.classList.remove('activeLang');
+      createButtons();
+    } else {
+      keyLanguage.classList.add('activeLang');
+      createButtonsRu();
+    }
+  };
+  row.append(keyLanguage);
+};
+
+let keyShift;
+const KeyShift = (num, row) => {
+  keyShift = document.createElement('button');
+  keyShift.classList.add('shift');
+  keyShift.textContent = buttons[num].content.en;
+  keyShift.setAttribute('tabindex', '1');
+  keyShift.focus();
+  keyShift.addEventListener('mousedown', () => {
+    keyShift.focus();
+    console.log('hi');
+    // createButtonsRu();
+  });
+
+  keyShift.addEventListener('mouseout', () => {
+    keyShift.focus();
+    console.log('by');
+  //  createButtons();
+  });
+
+  row.append(keyShift);
+};
+
+const row1 = document.createElement('div');
+const row2 = document.createElement('div');
+const row3 = document.createElement('div');
+const row4 = document.createElement('div');
+const row5 = document.createElement('div');
+const row6 = document.createElement('div');
 
 const createkeyBoard = () => {
   const root = document.createElement('div');
@@ -820,17 +886,11 @@ const createkeyBoard = () => {
   keyBoard.classList.add('keyboard');
   const keyWrapper = document.createElement('div');
   keyWrapper.classList.add('key_wrapper');
-  const row1 = document.createElement('div');
   row1.classList.add('row_1');
-  const row2 = document.createElement('div');
   row2.classList.add('row_2');
-  const row3 = document.createElement('div');
   row3.classList.add('row_3');
-  const row4 = document.createElement('div');
   row4.classList.add('row_4');
-  const row5 = document.createElement('div');
   row5.classList.add('row_5');
-  const row6 = document.createElement('div');
   row6.classList.add('row_6');
   document.body.append(root);
   root.append(cam);
@@ -844,10 +904,21 @@ const createkeyBoard = () => {
   keyWrapper.append(row4);
   keyWrapper.append(row5);
   keyWrapper.append(row6);
+};
+createkeyBoard();
 
-  functionalButtons(54, row5, 'shift');
+const createButtons = () => {
+  row1.innerHTML = '';
+  row2.innerHTML = '';
+  row3.innerHTML = '';
+  row4.innerHTML = '';
+  row5.innerHTML = '';
+  row6.innerHTML = '';
+  arrowsTopBot.innerHTML = '';
+  globus.innerHTML = '';
+  KeyShift(54, row5);
   for (let i = 0; i < buttons.length; i += 1) {
-    if (i >= 0 && i < 13) {
+    if (i >= 0 && i < 12) {
       functionalButtons(i, row1, 'button_first');
     } else if (i >= 13 && i < 26 && i !== 26) {
       KeyboardButtons(i, row2, 'ru');
@@ -859,12 +930,12 @@ const createkeyBoard = () => {
       KeyboardButtons(i, row5);
     }
   }
-
+  keyLang(12, row1);
   KeyDelet(26, row2);
   KeyTab(27, row3);
   KeyCapsLock(41, row4);
   KeyEnter(53, row4);
-  functionalButtons(65, row5, 'shift');
+  KeyShift(65, row5);
   functionalButtons(66, row6, 'button_buttom');
   functionalButtons(67, row6, 'button_buttom');
   functionalButtons(68, row6, 'button_buttom');
@@ -877,8 +948,407 @@ const createkeyBoard = () => {
   KeyarrowBottom(74, arrowsTopBot);
   KeyarrowRight(75, row6);
 };
-createkeyBoard();
+createButtons();
 
-cap.addEventListener('click', () => {
+const createButtonsRu = () => {
+  row1.innerHTML = '';
+  row2.innerHTML = '';
+  row3.innerHTML = '';
+  row4.innerHTML = '';
+  row5.innerHTML = '';
+  row6.innerHTML = '';
+  globus.innerHTML = '';
+  arrowsTopBot.innerHTML = '';
+  KeyShift(54, row5);
+  for (let i = 0; i < buttons.length; i += 1) {
+    if (i >= 0 && i < 12) {
+      functionalButtons(i, row1, 'button_first');
+    } else if (i >= 13 && i < 26 && i !== 26) {
+      KeyboardButtonsRu(i, row2, 'ru');
+    } else if (i >= 28 && i < 41) {
+      KeyboardButtonsRu(i, row3);
+    } else if (i >= 42 && i < 53) {
+      KeyboardButtonsRu(i, row4);
+    } else if (i >= 55 && i < 65) {
+      KeyboardButtonsRu(i, row5);
+    }
+  }
+  keyLang(12, row1);
+  KeyDelet(26, row2);
+  KeyTab(27, row3);
+  KeyCapsLock(41, row4);
+  KeyEnter(53, row4);
+  KeyShift(65, row5);
+  functionalButtons(66, row6, 'button_buttom');
+  functionalButtons(67, row6, 'button_buttom');
+  functionalButtons(68, row6, 'button_buttom');
+  KeySpace(69, row6);
+  functionalButtons(70, row6, 'button_buttom');
+  functionalButtons(71, row6, 'button_buttom');
+  KeyarrowLeft(72, row6);
+  row6.append(arrowsTopBot);
+  KeyarrowTop(73, arrowsTopBot);
+  KeyarrowBottom(74, arrowsTopBot);
+  KeyarrowRight(75, row6);
+};
 
-});
+const but = document.querySelectorAll('.button');
+const space = document.querySelector('.space');
+const returnBut = document.querySelector('.return');
+const arrowl = document.querySelector('.arrow_left');
+const arrowR = document.querySelector('.arrow_right');
+const arrowTop = document.querySelector('.arrow_top');
+const arrowBottom = document.querySelector('.arrow_bottom');
+
+const animation = (event) => {
+  console.log('code: ', event.code);
+  if (event.code === 'KeyZ') {
+    but[38].classList.add('activebut');
+    setTimeout(() => {
+      but[38].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyX') {
+    but[39].classList.add('activebut');
+    setTimeout(() => {
+      but[39].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyC') {
+    but[40].classList.add('activebut');
+    setTimeout(() => {
+      but[40].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyV') {
+    but[41].classList.add('activebut');
+    setTimeout(() => {
+      but[41].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyB') {
+    but[42].classList.add('activebut');
+    setTimeout(() => {
+      but[42].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyN') {
+    but[43].classList.add('activebut');
+    setTimeout(() => {
+      but[43].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyM') {
+    but[44].classList.add('activebut');
+    setTimeout(() => {
+      but[44].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Comma') {
+    but[45].classList.add('activebut');
+    setTimeout(() => {
+      but[45].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Period') {
+    but[46].classList.add('activebut');
+    setTimeout(() => {
+      but[46].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Slash') {
+    but[47].classList.add('activebut');
+    setTimeout(() => {
+      but[47].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Backquote') {
+    but[0].classList.add('activebut');
+    setTimeout(() => {
+      but[0].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit1') {
+    but[1].classList.add('activebut');
+    setTimeout(() => {
+      but[1].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit2') {
+    but[2].classList.add('activebut');
+    setTimeout(() => {
+      but[2].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit3') {
+    but[3].classList.add('activebut');
+    setTimeout(() => {
+      but[3].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit4') {
+    but[4].classList.add('activebut');
+    setTimeout(() => {
+      but[4].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit5') {
+    but[5].classList.add('activebut');
+    setTimeout(() => {
+      but[5].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit6') {
+    but[6].classList.add('activebut');
+    setTimeout(() => {
+      but[6].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit7') {
+    but[7].classList.add('activebut');
+    setTimeout(() => {
+      but[7].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit8') {
+    but[8].classList.add('activebut');
+    setTimeout(() => {
+      but[8].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit9') {
+    but[9].classList.add('activebut');
+    setTimeout(() => {
+      but[9].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Digit0') {
+    but[10].classList.add('activebut');
+    setTimeout(() => {
+      but[10].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Minus') {
+    but[11].classList.add('activebut');
+    setTimeout(() => {
+      but[11].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Equal') {
+    but[12].classList.add('activebut');
+    setTimeout(() => {
+      but[12].classList.remove('activebut');
+    }, 500);
+  }
+
+  if (event.code === 'KeyQ') {
+    but[13].classList.add('activebut');
+    setTimeout(() => {
+      but[13].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyW') {
+    but[14].classList.add('activebut');
+    setTimeout(() => {
+      but[14].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyE') {
+    but[15].classList.add('activebut');
+    setTimeout(() => {
+      but[15].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyR') {
+    but[16].classList.add('activebut');
+    setTimeout(() => {
+      but[16].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyT') {
+    but[17].classList.add('activebut');
+    setTimeout(() => {
+      but[17].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyY') {
+    but[18].classList.add('activebut');
+    setTimeout(() => {
+      but[18].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyU') {
+    but[19].classList.add('activebut');
+    setTimeout(() => {
+      but[19].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyI') {
+    but[20].classList.add('activebut');
+    setTimeout(() => {
+      but[20].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyO') {
+    but[21].classList.add('activebut');
+    setTimeout(() => {
+      but[21].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyP') {
+    but[22].classList.add('activebut');
+    setTimeout(() => {
+      but[22].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'BracketLeft') {
+    but[23].classList.add('activebut');
+    setTimeout(() => {
+      but[23].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'BracketRight') {
+    but[24].classList.add('activebut');
+    setTimeout(() => {
+      but[24].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Backslash') {
+    but[25].classList.add('activebut');
+    setTimeout(() => {
+      but[25].classList.remove('activebut');
+    }, 500);
+  }
+
+  /*    if (event.code === 'CapsLock') {
+    but[26].classList.add('activebut');
+    setTimeout(() => {
+      but[26].classList.remove('activebut');
+    }, 500);
+  }  */
+
+  if (event.code === 'KeyA') {
+    but[27].classList.add('activebut');
+    setTimeout(() => {
+      but[27].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyS') {
+    but[28].classList.add('activebut');
+    setTimeout(() => {
+      but[28].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyD') {
+    but[29].classList.add('activebut');
+    setTimeout(() => {
+      but[29].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyF') {
+    but[30].classList.add('activebut');
+    setTimeout(() => {
+      but[30].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyG') {
+    but[31].classList.add('activebut');
+    setTimeout(() => {
+      but[31].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyH') {
+    but[32].classList.add('activebut');
+    setTimeout(() => {
+      but[32].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyJ') {
+    but[33].classList.add('activebut');
+    setTimeout(() => {
+      but[33].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyK') {
+    but[34].classList.add('activebut');
+    setTimeout(() => {
+      but[34].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'KeyL') {
+    but[35].classList.add('activebut');
+    setTimeout(() => {
+      but[35].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Semicolon') {
+    but[36].classList.add('activebut');
+    setTimeout(() => {
+      but[36].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Quote') {
+    but[37].classList.add('activebut');
+    setTimeout(() => {
+      but[37].classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Space') {
+    space.classList.add('activebut');
+    setTimeout(() => {
+      space.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'Enter') {
+    returnBut.classList.add('activebut');
+    setTimeout(() => {
+      returnBut.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ArrowLeft') {
+    arrowl.classList.add('activebut');
+    setTimeout(() => {
+      arrowl.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ArrowRight') {
+    arrowR.classList.add('activebut');
+    setTimeout(() => {
+      arrowR.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ArrowUp') {
+    arrowTop.classList.add('activebut');
+    setTimeout(() => {
+      arrowTop.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'ArrowDown') {
+    arrowBottom.classList.add('activebut');
+    setTimeout(() => {
+      arrowBottom.classList.remove('activebut');
+    }, 500);
+  }
+  if (event.code === 'CapsLock') {
+    cap.classList.add('activebut');
+    if (cap.classList.contains('active')) {
+      cap.classList.remove('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
+    } else {
+      cap.classList.add('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
+    }
+    setTimeout(() => {
+      cap.classList.remove('activebut');
+    }, 500);
+  }
+};
+window.addEventListener('keydown', animation);
