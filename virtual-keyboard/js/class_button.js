@@ -8,4 +8,5 @@ class Button extends Control {
     this.node.onclick = () => { onClick(); };
   }
 }
+
 export default Button;

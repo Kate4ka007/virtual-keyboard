@@ -299,6 +299,8 @@ html {
     margin: 5px auto;
     width: 100%;
     justify-content: space-between;
+    
+
     .shift {
         cursor: pointer;
         width: 130px;
@@ -318,12 +320,17 @@ html {
             height: 47px;
             border-bottom: 1px solid black;
         }
+
+    
+    }
+    
+    #activeShift {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
     }
 
-    .activebut {
-         background: lighten($color: #222, $amount: 15);
-         
-     }
+    
 /*     .bottom_second__button {
         width: 50px;
         height: 50px;
@@ -331,6 +338,13 @@ html {
         border: 1px solid black;
     } */
 }
+
+
+
+.activebut {
+     background: lighten($color: #222, $amount: 15);
+     
+ }
 
 
 
