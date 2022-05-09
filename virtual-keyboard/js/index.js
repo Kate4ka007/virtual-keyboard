@@ -174,7 +174,7 @@ const keyLanguage = document.createElement('div');
 const keyLang = (num, row) => {
   keyLanguage.classList.add('lang');
   globus.classList.add('globus');
-  globus.src = '../virtual-keyboard/assets/image/lang.png';
+  globus.src = '../../assets/image/lang.png';
   keyLanguage.append(globus);
   keyLanguage.onclick = () => {
     textarea.focus();
