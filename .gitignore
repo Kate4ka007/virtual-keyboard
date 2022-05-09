@@ -1,5 +1,7 @@
 .vscode/
 .vscode
+*.css
+*.css.map
 
 # Logs
 logs

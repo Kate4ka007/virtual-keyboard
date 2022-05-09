@@ -141,9 +141,36 @@ const KeyarrowBottom = (num, row) => {
 
 const arrowsTopBot = document.createElement('div');
 arrowsTopBot.classList.add('arrows_top_bot');
+
+const KeyCapsLock = (num, row) => {
+  cap.classList.add('button');
+  cap.classList.add('caps_lock');
+  cap.textContent = buttons[num].content.en;
+  const lamp = document.createElement('div');
+  lamp.classList.add('lamp');
+  cap.prepend(lamp);
+  cap.onclick = () => {
+    textarea.focus();
+    if (cap.classList.contains('active')) {
+      cap.classList.remove('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
+    } else {
+      cap.classList.add('active');
+      if (keyLanguage.classList.contains('activeLang')) {
+        createButtonsRu();
+      } else {
+        createButtons();
+      }
+    }
+  };
+  row.prepend(cap);
+};
 const globus = document.createElement('img');
 const keyLanguage = document.createElement('div');
-
 const keyLang = (num, row) => {
   keyLanguage.classList.add('lang');
   globus.classList.add('globus');
@@ -384,34 +411,6 @@ const addLocalStorage = () => {
 };
 addLocalStorage();
 
-const KeyCapsLock = (num, row) => {
-  cap.classList.add('button');
-  cap.classList.add('caps_lock');
-  cap.textContent = buttons[num].content.en;
-  const lamp = document.createElement('div');
-  lamp.classList.add('lamp');
-  cap.prepend(lamp);
-  cap.onclick = () => {
-    textarea.focus();
-    if (cap.classList.contains('active')) {
-      cap.classList.remove('active');
-      if (keyLanguage.classList.contains('activeLang')) {
-        createButtonsRu();
-      } else {
-        createButtons();
-      }
-    } else {
-      cap.classList.add('active');
-      if (keyLanguage.classList.contains('activeLang')) {
-        createButtonsRu();
-      } else {
-        createButtons();
-      }
-    }
-  };
-  row.prepend(cap);
-};
-
 const createButtonsShift = () => {
   row1.innerHTML = '';
   row2.innerHTML = '';
@@ -452,7 +451,6 @@ const createButtonsShift = () => {
   KeyarrowTop(74, arrowsTopBot);
   KeyarrowBottom(75, arrowsTopBot);
   KeyarrowRight(76, row6);
-  // textarea.focus();
 };
 
 const animation = (event) => {
