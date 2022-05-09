@@ -216,12 +216,6 @@ body {
       -ms-flex-direction: row;
           flex-direction: row;
   margin: 5px auto;
-  /*     .top_third__button {
-        width: 50px;
-        height: 50px;
-        @extend %flex;
-        border: 1px solid black;
-    } */
 }
 
 .row_3 .activebut {
@@ -268,12 +262,6 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 100%;
-  /*     .bottom_first__button {
-        width: 50px;
-        height: 50px;
-        @extend %flex;
-        border: 1px solid black;
-    } */
 }
 
 .row_4 .return {
@@ -353,12 +341,6 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  /*     .bottom_second__button {
-        width: 50px;
-        height: 50px;
-        @extend %flex;
-        border: 1px solid black;
-    } */
 }
 
 .row_5 .shift {
@@ -392,6 +374,10 @@ body {
   border-bottom: 1px solid black;
 }
 
+.row_5 .activebut {
+  background: #484848;
+}
+
 .activebut {
   background: #484848;
 }
@@ -407,12 +393,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  /*     .bottom_third__button {
-        width: 50px;
-        height: 50px;
-        @extend %flex;
-        border: 1px solid black;
-    } */
 }
 
 .row_6 .activebut {
