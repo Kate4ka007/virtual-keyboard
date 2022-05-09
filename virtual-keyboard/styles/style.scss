@@ -1,0 +1,708 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+%flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background-color: #7c7e7e;
+}
+
+
+.keyboard {
+    width: 900px;
+    height: 417px;
+    background-color: #d5d9dc;
+    background: linear-gradient(0deg, rgba(213, 217, 220, 1) 0%, rgba(213, 217, 220, 1) 89%, rgba(255, 255, 255, 1) 95%, rgba(213, 217, 220, 1) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+
+    box-shadow:
+        inset 0 0 8px #bbb,
+        0 1px 0 #aaa,
+        0 4px 0 #bbb,
+        0 10px 30px #111;
+}
+
+#root {
+    width: 1440px;
+    height: 1000px;
+    background-color: #7c7e7e;
+    margin: 0 auto;
+    @extend %flex;
+    flex-direction: column;
+}
+
+.key_wrapper {
+    width: 880px;
+    height: 380px;
+    margin: 0 auto;
+    @extend %flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.top_part {
+    @extend %flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.bottom_part {
+    @extend %flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.row_1 {
+    width: 100%;
+    gap: 10px;
+    @extend %flex;
+    flex-direction: row;
+    margin: 5px auto;
+    justify-content: space-between;
+
+    .button_first {
+        cursor: pointer;
+        width: 53.5px;
+        height: 35px;
+        border-radius: 8px;
+        @extend %flex;
+        border: 1px solid black;
+        background: #222;
+        color: #888;
+        user-select: none;
+        border-bottom: 4px solid black;
+        user-select: none;
+
+        &:hover {
+            background: lighten($color: #222, $amount: 5);
+        }
+
+        &:active {
+            margin-bottom: -3px;
+            height: 32px;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .lang {
+        cursor: pointer;
+        width: 53.5px;
+        height: 35px;
+        border-radius: 8px;
+        @extend %flex;
+        border: 1px solid black;
+        background: #222;
+        color: #888;
+        user-select: none;
+        border-bottom: 4px solid black;
+        user-select: none;
+
+        &:hover {
+            background: lighten($color: #222, $amount: 5);
+        }
+
+        &:active {
+            margin-bottom: -3px;
+            height: 32px;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .activeLang {
+        background: lighten($color: #222, $amount: 5);
+        margin-bottom: -3px;
+        height: 32px;
+        border-bottom: 1px solid black;
+    }
+
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+}
+
+.row_2 {
+    gap: 10px;
+    @extend %flex;
+    flex-direction: row;
+    margin: 5px auto;
+
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+}
+
+.delete {
+    cursor: pointer;
+    border-radius: 8px;
+    @extend %flex;
+    border: 1px solid black;
+    border-bottom: 4px solid black;
+    background: #222;
+    color: #888;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    border-bottom: 4px solid black;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.row_3 {
+    gap: 10px;
+    @extend %flex;
+    flex-direction: row;
+    margin: 5px auto;
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+
+}
+
+.tab {
+    width: 100px;
+    height: 50px;
+    border-bottom: 4px solid black;
+    user-select: none;
+    cursor: pointer;
+    border-radius: 8px;
+    @extend %flex;
+    border: 1px solid black;
+    background: #222;
+    color: #888;
+    text-align: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    flex-grow: 0;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.row_4 {
+    gap: 10px;
+    @extend %flex;
+    margin: 5px auto;
+    justify-content: space-between;
+    width: 100%;
+
+    .return {
+        cursor: pointer;
+        width: 120px;
+        height: 50px;
+        border-radius: 8px;
+        @extend %flex;
+        border: 1px solid black;
+        background: #222;
+        color: #888;
+        border-bottom: 4px solid black;
+        user-select: none;
+
+        &:hover {
+            background: lighten($color: #222, $amount: 5);
+        }
+
+        &:active {
+            margin-bottom: -3px;
+            height: 47px;
+            border-bottom: 1px solid black;
+        }
+
+    }
+
+    .caps_lock {
+        cursor: pointer;
+        width: 120px;
+        height: 50px;
+        border-radius: 8px;
+        @extend %flex;
+        border: 1px solid black;
+        background: #222;
+        color: #888;
+        border-bottom: 4px solid black;
+        user-select: none;
+
+        &:hover {
+            background: lighten($color: #222, $amount: 5);
+        }
+
+        &:active {
+            background: lighten($color: #222, $amount: 5);
+            margin-bottom: -3px;
+            height: 47px;
+            border-bottom: 1px solid black;
+
+            .lamp {
+                background-color: green;
+            }
+        }
+
+    }
+
+
+    .active {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
+        background: lighten($color: #222, $amount: 5);
+
+        .lamp {
+            background-color: green;
+        }
+    }
+
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+}
+
+
+
+
+.row_5 {
+    gap: 10px;
+    @extend %flex;
+    margin: 5px auto;
+    width: 100%;
+    justify-content: space-between;
+
+
+    .shift {
+        cursor: pointer;
+        width: 130px;
+        height: 50px;
+        border-radius: 8px;
+        @extend %flex;
+        border: 1px solid black;
+        background: #222;
+        color: #888;
+        border-bottom: 4px solid black;
+        user-select: none;
+
+        &:hover {
+            background: lighten($color: #222, $amount: 5);
+        }
+
+        &:active {
+            margin-bottom: -3px;
+            height: 47px;
+            border-bottom: 1px solid black;
+        }
+
+
+    }
+
+    #activeShift {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
+    }
+
+
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+}
+
+
+
+.activebut {
+    background: lighten($color: #222, $amount: 15);
+
+}
+
+
+
+.row_6 {
+    gap: 10px;
+    @extend %flex;
+    margin: 5px auto;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+
+    .activebut {
+        background: lighten($color: #222, $amount: 15);
+
+    }
+
+}
+
+.tab {
+    width: 100px;
+    height: 50px;
+    border-bottom: 4px solid black;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    @extend %flex;
+    border: 1px solid black;
+    border-bottom: 4px solid black;
+    background: #222;
+    color: #888;
+    text-align: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    flex-grow: 0;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 47px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.button_buttom {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    @extend %flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-bottom: 4px solid black;
+    background: #222;
+    color: #888;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 57px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.ctrl {
+    border-radius: 8px;
+    width: 60px;
+    height: 60px;
+    @extend %flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-bottom: 4px solid black;
+    background: #222;
+    color: #888;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 57px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.space {
+    width: 300px;
+    border-bottom: 4px solid black;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: -3px;
+        height: 57px;
+        border-bottom: 1px solid black;
+    }
+}
+
+
+.arrows {
+    width: 200px;
+    height: 60px;
+    @extend %flex;
+    justify-content: space-between;
+}
+
+.arrow_left,
+.arrow_right {
+    border-radius: 8px;
+    align-self: flex-end;
+    width: 60px;
+    height: 30px;
+    @extend %flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    background: #222;
+    color: #888;
+    border-bottom: 4px solid black;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: 0px;
+        height: 27px;
+        border-bottom: 1px solid black;
+    }
+}
+
+.arrows_top_bot {
+    width: 50px;
+    height: 60px;
+    @extend %flex;
+    flex-direction: column;
+    margin-left: 8px;
+    justify-content: end;
+}
+
+.arrow_top,
+.arrow_bottom {
+    align-self: flex-end;
+    width: 60px;
+    height: 30px;
+    @extend %flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    background: #222;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+        background: lighten($color: #222, $amount: 5);
+    }
+
+    &:active {
+        margin-bottom: 0px;
+        height: 27px;
+        border-bottom: 1px solid black;
+    }
+
+}
+
+.arrow_top {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.arrow_bottom {
+    border-radius: 0px 0px 8px 8px;
+    border-bottom: 4px solid black;
+}
+
+.lamp {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    position: relative;
+    top: -10px;
+    left: -11px;
+    background-color: #7c7e7e;
+}
+
+.input_area {
+    width: 800px;
+    height: 400px;
+    background-color: #d8e1e7;
+    margin-bottom: 50px;
+    border-radius: 16px;
+    border: 20px solid #222;
+    border-top: 30px solid #222;
+    overflow: hidden;
+    box-shadow:
+        inset 0 0 8px #bbb,
+        0 10px 30px #111;
+
+}
+
+textarea {
+    min-width: 100%;
+    min-height: 100%;
+    resize: none;
+    padding: 10px;
+    background-color: #e7e7e7;
+    border: none;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.cam {
+    background-image: url(../assets/image/pngwing.com.png);
+    background-repeat: no-repeat;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    top: 35px;
+    left: -15px;
+}
+
+#blink {
+    position: relative;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    top: 18px;
+    left: -45px;
+    background-color: red;
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+}
+
+@keyframes blink {
+    0% {
+        background: #ff0000;
+    }
+
+    50% {
+        background: #000
+    }
+
+    100% {
+        background: #ff0000;
+    }
+
+}
+
+.arrow_left,
+.arrow_top,
+.arrow_bottom,
+.arrow_right {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.globus {
+    width: 35px;
+    height: 35px;
+    background-image: url(../assets/image/lang.png);
+    background-position: 0 0;
+    background-size: contain;
+}
+
+h2,
+p {
+    font-size: 100%;
+    font-weight: normal;
+    line-height: 100%;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+ul {
+    overflow: hidden;
+    padding: 3em;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000;
+    background: #ffc;
+    display: block;
+    height: 10em;
+    width: 10em;
+    padding: 1em;
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+    transition: transform .15s linear;
+}
+
+ul li {
+    margin: 1em;
+    float: left;
+}
+
+ul li h2 {
+    font-size: 100%;
+    font-weight: bold;
+    padding-bottom: 6px;
+}
+
+ul li p {
+    font-family: "Reenie Beanie", arial, sans-serif;
+    font-size: 160%;
+}
+
+ul li a {
+    transform: rotate(-6deg);
+}
+
+ul li:nth-child(even) a {
+    transform: rotate(4deg);
+    position: relative;
+    top: 5px;
+    background: #cfc;
+}
+
+ul li a:hover,
+ul li a:focus {
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    transform: scale(1.25);
+    position: relative;
+    z-index: 5;
+}
+
+ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+}
