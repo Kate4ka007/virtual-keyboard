@@ -141,7 +141,6 @@ const KeyarrowBottom = (num, row) => {
 
 const arrowsTopBot = document.createElement('div');
 arrowsTopBot.classList.add('arrows_top_bot');
-
 const KeyCapsLock = (num, row) => {
   cap.classList.add('button');
   cap.classList.add('caps_lock');
@@ -169,12 +168,11 @@ const KeyCapsLock = (num, row) => {
   };
   row.prepend(cap);
 };
-const globus = document.createElement('img');
+const globus = document.createElement('div');
 const keyLanguage = document.createElement('div');
 const keyLang = (num, row) => {
   keyLanguage.classList.add('lang');
   globus.classList.add('globus');
-  globus.src = '../virtual-keyboard/assets/image/lang.png';
   keyLanguage.append(globus);
   keyLanguage.onclick = () => {
     textarea.focus();
