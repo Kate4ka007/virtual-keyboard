@@ -355,12 +355,7 @@ html {
     width: 100%;
     justify-content: space-between;
     flex-direction: row;
-/*     .bottom_third__button {
-        width: 50px;
-        height: 50px;
-        @extend %flex;
-        border: 1px solid black;
-    } */
+
     .activebut {
         background: lighten($color: #222, $amount: 15);
         
