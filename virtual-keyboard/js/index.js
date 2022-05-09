@@ -279,6 +279,19 @@ const row6 = document.createElement('div');
 const createkeyBoard = () => {
   const root = document.createElement('div');
   root.id = 'root';
+  const stik = document.createElement('ul');
+  stik.innerHTML = `<li>
+  <a href="#">
+    <h2>Change language</h2>
+    <p>Click on the button with the picture of the globe</p>
+  </a>
+</li>
+<li>
+  <a href="#">      
+    <p>Made on Windows system</p>
+  </a>
+</li>`;
+  root.append(stik);
   const cam = document.createElement('div');
   cam.classList.add('cam');
   const blink = document.createElement('div');
