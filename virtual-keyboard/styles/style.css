@@ -390,7 +390,13 @@ html {
   border-bottom: 1px solid black;
 }
 
-.row_5 .activebut {
+.row_5 #activeShift {
+  margin-bottom: -3px;
+  height: 47px;
+  border-bottom: 1px solid black;
+}
+
+.activebut {
   background: #484848;
 }
 
@@ -717,7 +723,10 @@ textarea {
 }
 
 .globus {
-  width: auto;
-  height: 100%;
+  width: 35px;
+  height: 35px;
+  background-image: url(../assets/image/lang.png);
+  background-position: 0 0;
+  background-size: contain;
 }
 /*# sourceMappingURL=style.css.map */
